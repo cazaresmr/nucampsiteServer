@@ -4,7 +4,7 @@ const promotionRouter = express.Router();
 
 promotionRouter.route('/')
 .get((req, res, next) => {
-    promotion.find()
+    Promotion.find()
     .then(promotions => {    
         res.statusCode = 200;
         res.setHeader('Content-Type', 'application/json');
