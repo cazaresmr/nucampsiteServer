@@ -16,7 +16,7 @@ partnerRouter
 			})
 			.catch((err) => next(err))
 	})
-	.post(authenticate.verifyUser, (req, res, next) => {
+	.post(authenticate.verifyAdmin, (req, res, next) => {
 		Partner.create(req.body)
 			.then((partner) => {
 				console.log("partner Created ", partner)
@@ -55,7 +55,7 @@ partnerRouter
 		res.statusCode = 403
 		res.end(`POST operation not supported on /partners/${req.params.partnerId}`)
 	})
-	.put(authenticate.verifyUser, (req, res, next) => {
+	.put(authenticate.verifyAdmin, (req, res, next) => {
 		Partner.findByIdAndUpdate(
 			req.params.partnerId,
 			{
@@ -70,7 +70,7 @@ partnerRouter
 			})
 			.catch((err) => next(err))
 	})
-	.delete(authenticate.verifyUser, (req, res, next) => {
+	.delete(authenticate.verifyAdmin, (req, res, next) => {
 		Partner.findByIdAndDelete(req.params.partnerId)
 			.then((response) => {
 				res.statusCode = 200
