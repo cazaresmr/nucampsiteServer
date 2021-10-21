@@ -2,3 +2,4 @@ node_modules
 cazares-git-repo.txt
 bin/server.key
 bin/server.cert
+config.js
