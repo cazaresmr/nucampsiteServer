@@ -25,25 +25,27 @@ const campsiteRouter = require("./routes/campsiteRouter")
 const promotionRouter = require("./routes/promotionRouter")
 const partnerRouter = require("./routes/partnerRouter")
 const uploadRouter = require("./routes/uploadRouter")
+const favoriteRouter = require("./routes/favoriteRouter")
 
 var app = express()
 
-// Secure traffic only
-app.all('*', (req, res, next) => {
-    if (req.secure) {
-      return next();
-    } else {
-        console.log(`Redirecting to: https://${req.hostname}:${app.get('secPort')}${req.url}`);
-        res.redirect(301, `https://${req.hostname}:${app.get('secPort')}${req.url}`);
-    }
-});
+app.all("*", (req, res, next) => {
+	if (req.secure) {
+		return next()
+	} else {
+		console.log(`Redirecting to: https://${req.hostname}:${app.get("secPort")}${req.url}`)
+		res.redirect(301, `https://${req.hostname}:${app.get("secPort")}${req.url}`)
+	}
+})
 
 app.set("views", path.join(__dirname, "views"))
 app.set("view engine", "jade")
 
 app.use(logger("dev"))
 app.use(express.json())
-app.use(express.urlencoded({ extended: false }))
+app.use(express.urlencoded({
+	extended: false
+}))
 
 app.use(passport.initialize())
 
@@ -56,6 +58,7 @@ app.use("/campsites", campsiteRouter)
 app.use("/promotions", promotionRouter)
 app.use("/partners", partnerRouter)
 app.use("/imageUpload", uploadRouter)
+app.use("/favorites", favoriteRouter)
 
 app.use(function (req, res, next) {
 	next(createError(404))
